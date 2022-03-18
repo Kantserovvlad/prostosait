@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, redirect, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
@@ -14,6 +16,8 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
 def main():
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
     db_session.global_init("db/mars_jobs.db")
     app.register_blueprint(jobs_api.blueprint)
     app.run()
